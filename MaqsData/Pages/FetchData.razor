@@ -1,0 +1,97 @@
+﻿@page "/fetchdata"
+
+
+
+
+
+@using MaqsData.DataTransferObjects
+@using MaqsData.Modules
+@using MaqsData.Contexts;
+@using MaqsData.Data;
+@using MaqsData.Components;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.EntityFrameworkCore.Metadata;
+
+@inject ISnackbar Snackbar
+@inject IDbContextFactory<DocumentContext> contextFactory;
+
+
+
+
+<PageTitle>Home</PageTitle>
+
+<div class="container">
+
+    <div class="row">
+        <label style="margin-left:20px; margin-top:10px;">Please Choose a form option</label>
+        <select class="form-select" @bind="@document.TableSelection">
+            @foreach (string item in _tableSelection)
+            {
+                <option>@item</option>
+            }
+        </select>
+
+        <div class="row">
+            <button type="button" class="button" @onclick="ToggleTable"> Show Table</button>
+        </div>
+
+    </div>
+
+    <br />
+
+
+</div>
+
+@if(ShowTable)
+{
+    @switch(document.TableSelection)
+    {
+        case "Show Results":
+            <ShowResultsTable/>
+             break;
+
+        case "Inventory Table":
+            <InventoryTable/>
+            break;
+
+        default:
+            <ShowResultsTable/>
+             break;
+    }
+}
+
+
+@code {
+    public bool ShowTable = false;
+    List<string> _tableSelection;
+    public DocumentModel document = new();
+
+
+
+    public void FunctionsHandler()
+    {
+
+    }
+
+    public void HandleChange(ChangeEventArgs e)
+    {
+
+    }
+
+    public void ToggleTable () {
+        ShowTable = true;
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+        CreateData cd = new();
+        _tableSelection = cd.GetTableDropdown();
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+}
+

@@ -1,0 +1,193 @@
+﻿
+
+@using MaqsData.DataTransferObjects
+@using MaqsData.Modules
+@using MaqsData.Contexts;
+@using MaqsData.Data;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.EntityFrameworkCore.Metadata;
+
+@inject ISnackbar Snackbar
+@inject IDbContextFactory<DocumentContext> contextFactory;
+
+
+<PageTitle>Form</PageTitle>
+
+<div class="container">
+
+
+    <label class="header">Show Result Form</label>
+
+    <div class="row">
+        <label>Show Date</label>
+        <input class="fieldz" type="datetime-local" @bind="Dataset.ShowDate" @oninput="ChangeHandler" />
+        <label>Entry Date</label>
+        <input class="fieldz" type="datetime-local" @bind="Dataset.EntryDate" @oninput="ChangeHandler" />
+    </div>
+    <div class="row">
+        <label>Necklaces Sold</label>
+        <input class="fieldz" @bind="Dataset.NecklacesSold" @oninput="ChangeHandler" />
+        <label>Bracelets Sold</label>
+        <input class="fieldz" @bind="Dataset.BraceletsSold" @oninput="ChangeHandler" />
+    </div>
+    <div class="row">
+        <label>Rings Sold</label>
+        <input class="fieldz" @bind="Dataset.RingsSold" @oninput="ChangeHandler" />
+        <label>Earrings Sold</label>
+        <input class="fieldz" @bind="Dataset.EarringsSold" @oninput="ChangeHandler" />
+    </div>
+    <div class="row">
+        <label>Key Chains Sold</label>
+        <input class="fieldz" @bind="Dataset.KeyChainsSold" @oninput="ChangeHandler" />
+        <label>Hair Clips Sold</label>
+        <input class="fieldz" @bind="Dataset.HairClipsSold" @oninput="ChangeHandler" />
+    </div>
+    <div class="row">
+        <label>ExpensesForShow</label>
+        <input class="fieldz" @bind="Dataset.ExpensesForShow" @oninput="ChangeHandler" />
+        <label>Show Gross Profit</label>
+        <input class="fieldz" @bind="Dataset.ShowGrossProfit"  />
+
+    </div>
+    <div class="row">
+        <label>Show Net Profit</label>
+        <input class="fieldz" value="@Dataset.ShowNetProfit" readonly=true @onchange="ChangeHandler" />
+        <label>Show Details</label>
+        <input class="fieldz" @bind="Dataset.ShowDetails" @oninput="ChangeHandler" />
+    </div>
+        <div class="row">
+        <label>Summary</label>
+        <textarea class="text-area"  @bind="Dataset.Summary" @oninput="ChangeHandler" />
+    </div>
+
+    <div class="buttons">
+
+        <button class="buttonz" @onclick="FunctionsHandler">Submit</button>
+        <div class="divider" />
+        <button class="buttonz" @onclick="FunctionsHandler">Clear</button>
+        @{
+            if (!isValid)
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+                Snackbar.Add($"You have {errors.Count} errors on the form: {ErrorString} fields must be filled in", Severity.Error);
+                isValid = true;
+                ErrorString = "";
+                errors = new();
+            }
+            else if (Submitted == true)
+            {
+                Snackbar.Add($"Form Submitted", Severity.Success);
+                Submitted = false;
+            }
+        }
+
+    </div>
+
+
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public DocumentModel Dataset
+    {
+        get {
+            _dataset.ShowNetProfit = _dataset.ShowGrossProfit - _dataset.ExpensesForShow;
+            return _dataset;
+        }
+        set{
+
+        }
+    }
+
+
+    bool isValid = true;
+    List<string> errors = new();
+    string ErrorString;
+    public bool Submitted = false;
+    public DocumentModel _dataset = new();
+
+
+
+    public void ChangeHandler(ChangeEventArgs e)
+    {
+
+    }
+
+    public void FunctionsHandler()
+    {
+        errors = Validate(Dataset, errors);
+
+        if (errors.Count != 0)
+        {
+            isValid = false;
+        }
+        else
+        {
+            Submitted = true;
+            Functions fn = new(contextFactory);
+            fn.SaveShowForm(Dataset);
+        }
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        return;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        CreateData cd = new();
+
+
+
+        return;
+    }
+
+
+    public List<string> Validate(DocumentModel doc, List<string> errors)
+    {
+        if (doc.ShowDate == null)
+            errors.Add("Show Date");
+        if (doc.EntryDate == null)
+            errors.Add("Entry Date");
+        if (doc.NecklaceTotal == null)
+            errors.Add("Necklace Count");
+        if (doc.RingsSold == null)
+            errors.Add("Rings Sold");
+        if (doc.EarringsSold == null)
+            errors.Add("Earrings Sold");
+        if (doc.BraceletsSold == null)
+            errors.Add("Bracelet Count");
+        if (doc.HairClipsSold == null)
+            errors.Add("Hair Clip Count");
+        if (doc.KeyChainsSold == null)
+            errors.Add("Key Chain Count");
+
+
+        ErrorString = GetAlertString(errors);
+        return errors;
+
+    }
+
+
+    public string GetAlertString(List<string> errors)
+    {
+        string errorString = "";
+        foreach (string error in errors)
+        {
+            if (errors.Count == 1)
+                errorString += error + " ";
+            else
+                errorString += error + ", ";
+
+        }
+
+        return errorString;
+    }
+}
+

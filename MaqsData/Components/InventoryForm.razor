@@ -1,0 +1,157 @@
+﻿@using MaqsData.DataTransferObjects
+@using MaqsData.Modules
+@using MaqsData.Contexts;
+@using MaqsData.Data;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.EntityFrameworkCore.Metadata;
+
+@inject ISnackbar Snackbar
+@inject IDbContextFactory<DocumentContext> contextFactory;
+
+
+<PageTitle>Form</PageTitle>
+
+<div class="container">
+
+
+    <label class="header">Inventory Form</label>
+
+
+    <div class="row">
+        <label>Necklaces Total</label>
+        <input class="fieldz" @bind="Dataset.NecklaceTotal" @oninput="ChangeHandler" />
+        <label>Bracelets Total</label>
+        <input class="fieldz" @bind="Dataset.BraceletTotal" @oninput="ChangeHandler" />
+    </div>
+    <div class="row">
+        <label>Rings Total</label>
+        <input class="fieldz" @bind="Dataset.RingTotal" @oninput="ChangeHandler" />
+        <label>Earrings Total</label>
+        <input class="fieldz" @bind="Dataset.EarringTotal" @oninput="ChangeHandler" />
+    </div>
+    <div class="row">
+        <label>Key Chains Total</label>
+        <input class="fieldz" @bind="Dataset.KeyChainTotal" @oninput="ChangeHandler" />
+        <label>Hair Clips Total</label>
+        <input class="fieldz" @bind="Dataset.HairClipTotal" @oninput="ChangeHandler" />
+    </div>
+
+    <div class="buttons">
+
+        <button class="buttonz" @onclick="FunctionsHandler">Submit</button>
+        <div class="divider" />
+        <button class="buttonz" @onclick="FunctionsHandler">Clear</button>
+        @{
+            if (!isValid)
+            {
+                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+                Snackbar.Add($"You have {errors.Count} errors on the form: {ErrorString} fields must be filled in", Severity.Error);
+                isValid = true;
+                ErrorString = "";
+                errors = new();
+            }
+            else if (Submitted == true)
+            {
+                Snackbar.Add($"Form Submitted", Severity.Success);
+                Submitted = false;
+            }
+        }
+
+    </div>
+
+
+</div>
+
+
+
+@code {
+
+    [Parameter]
+    public DocumentModel Dataset { get; set; }
+
+
+    bool isValid = true;
+    List<string> errors = new();
+    string ErrorString;
+    public bool Submitted = false;
+    public DocumentModel _dataset = new();
+
+
+
+    public void ChangeHandler(ChangeEventArgs e)
+    {
+
+    }
+
+    public void FunctionsHandler()
+    {
+        errors = Validate(Dataset, errors);
+
+        if (errors.Count != 0)
+        {
+            isValid = false;
+        }
+        else
+        {
+            Submitted = true;
+            Functions fn = new(contextFactory);
+            fn.SaveInventoryForm(Dataset);
+        }
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        return;
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        CreateData cd = new();
+
+
+
+        return;
+    }
+
+
+    public List<string> Validate(DocumentModel doc, List<string> errors)
+    {
+
+        if (doc.NecklaceTotal == null)
+            errors.Add("Necklace Count");
+        if (doc.RingTotal == null)
+            errors.Add("Rings Count");
+        if (doc.EarringTotal == null)
+            errors.Add("Earrings Count");
+        if (doc.BraceletTotal == null)
+            errors.Add("Bracelet Count");
+        if (doc.HairClipTotal == null)
+            errors.Add("Hair Clip Count");
+        if (doc.KeyChainTotal == null)
+            errors.Add("Key Chain Count");
+
+
+        ErrorString = GetAlertString(errors);
+        return errors;
+
+    }
+
+
+    public string GetAlertString(List<string> errors)
+    {
+        string errorString = "";
+        foreach (string error in errors)
+        {
+            if (errors.Count == 1)
+                errorString += error + " ";
+            else
+                errorString += error + ", ";
+
+        }
+
+        return errorString;
+    }
+}
+

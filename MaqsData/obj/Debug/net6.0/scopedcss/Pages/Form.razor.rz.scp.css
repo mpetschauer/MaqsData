@@ -1,0 +1,33 @@
+body[b-4b8i44ims9] {
+}
+
+.container[b-4b8i44ims9] {
+    width: 80%;
+    height: 80%;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.row[b-4b8i44ims9] {
+
+}
+
+dropdown-label[b-4b8i44ims9] {
+    font-weight: bold;
+    margin-left:20px;
+    margin-top:10px;
+}
+
+.form-select[b-4b8i44ims9]{
+    width: 30%;
+ 
+}
+
+.button[b-4b8i44ims9]{
+    width: 30%;
+    padding: 5px 5px 5px 5px;
+    border-radius: 8px;
+    margin-top: 40px;
+    border: 2px solid black;
+}

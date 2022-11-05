@@ -1,0 +1,76 @@
+is_global = true
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = MaqsData
+build_property.RootNamespace = MaqsData
+build_property.ProjectDir = C:\dev\MaqsData\MaqsData\
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\dev\MaqsData\MaqsData
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/dev/MaqsData/MaqsData/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Components/InventoryTable.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJbnZlbnRvcnlUYWJsZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Components/ShowResultsTable.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaG93UmVzdWx0c1RhYmxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Components/InventoryForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJbnZlbnRvcnlGb3JtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-xy981avtkw
+
+[C:/dev/MaqsData/MaqsData/Components/ShowResultsForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaG93UmVzdWx0c0Zvcm0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-z1g7ycaam9
+
+[C:/dev/MaqsData/MaqsData/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-4a11yvvzfl
+
+[C:/dev/MaqsData/MaqsData/Pages/Form.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRm9ybS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-4b8i44ims9
+
+[C:/dev/MaqsData/MaqsData/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-30lo8j1rbz
+
+[C:/dev/MaqsData/MaqsData/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-jd79z5b7t6
+
+[C:/dev/MaqsData/MaqsData/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Pages/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX0xheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 

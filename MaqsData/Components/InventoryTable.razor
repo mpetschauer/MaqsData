@@ -1,0 +1,90 @@
+﻿@using MaqsData.DataTransferObjects
+@using MaqsData.Modules
+@using MaqsData.Contexts;
+@using MaqsData.Data;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.EntityFrameworkCore.Metadata;
+
+@inject ISnackbar Snackbar
+@inject IDbContextFactory<DocumentContext> contextFactory;
+
+<h3>Show Inventory Table</h3>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Entry Date</th>
+            <th>Necklace Total</th>
+            <th>Bracelet Total</th>
+            <th>Ring Total</th>
+            <th>Earrings Total</th>
+            <th>Key Chains Total</th>
+            <th>Hair Clips Total</th>
+            <th>Necklace Total Value</th>
+            <th>Bracelet Total Value</th>
+            <th>Ring Total Value</th>
+            <th>Earring Total Value</th>
+            <th>KeyChain Total Value</th>
+            <th>Hair Clip Total Value</th>
+            <th>Total Inventory Value</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var doc in InventoryList)
+        {
+            <tr>
+                <td>@doc.Id.ToString()</td>
+                <td>@doc.entryDate</td>
+                <td>@doc.NecklaceTotal</td>
+                <td>@doc.BraceletTotal</td>
+                <td>@doc.RingTotal</td>
+                <td>@doc.EarringTotal</td>
+                <td>@doc.KeyChainTotal</td>
+                <td>@doc.HairClipTotal</td>
+                <td>@doc.NeckalaceTotalValue</td>
+                <td>@doc.BraceletTotalValue</td>
+                <td>@doc.RingTotalValue</td>
+                <td>@doc.EarringTotalvalue</td>
+                <td>@doc.KeyChainTotalvalue</td>
+                <td>@doc.HairClipTotalValue</td>
+                <td>@doc.TotalInventoryValue</td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@code {
+    public List<Inventory> InventoryList = new();
+
+
+    public void FunctionsHandler()
+    {
+
+    }
+
+    public void HandleChange(ChangeEventArgs e)
+    {
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+        using (var context = contextFactory.CreateDbContext())
+        {
+            var RequestItems = context.Inventorys.ToList();
+            InventoryList = RequestItems;
+            InventoryList.Reverse();
+        }
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+}

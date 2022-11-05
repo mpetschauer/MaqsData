@@ -1,0 +1,105 @@
+﻿@page "/form"
+
+@using MaqsData.DataTransferObjects
+@using MaqsData.Modules
+@using MaqsData.Contexts;
+@using MaqsData.Data;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.EntityFrameworkCore.Metadata;
+@using MaqsData.Components;
+
+@inject ISnackbar Snackbar
+@inject IDbContextFactory<DocumentContext> contextFactory;
+
+
+<PageTitle>Form</PageTitle>
+
+
+<div class="container">
+
+    <div class="row">
+        <label style="margin-left:20px; margin-top:10px;">Please Choose a form option</label>
+        <select class="form-select" @bind="@document.FormSelection">
+            @foreach (string item in _formSelection)
+            {
+                <option>@item</option>
+            }
+        </select>
+
+        <div class="row">
+            <button type="button" class="button" @onclick="ShowForm"> Show Form </button>
+        </div>
+
+    </div>
+
+    <br/>
+
+
+</div>
+
+
+@if(showForm)
+{
+    @switch(document.FormSelection)
+    {
+        case "Show Results":
+            <ShowResultsForm
+             Dataset=@document/>
+             break;
+
+        case "Inventory Form":
+            <InventoryForm
+             Dataset="@document" />
+             break;
+
+        default:
+            <ShowResultsForm
+             Dataset=@document />
+             break;
+    }
+}
+
+
+
+
+
+
+@code {
+
+
+    DocumentModel document = new();
+    List<string> _formSelection;
+
+    bool showForm = false;
+
+    public void ChangeHandler()
+    {
+
+    }
+
+    public void FunctionsHandler()
+    {
+
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        CreateData cd = new();
+        _formSelection = cd.GetFormDropdown();
+        document = cd.GetDefaultForm();
+    }
+
+
+    protected override async Task  OnInitializedAsync()
+    {
+
+    }
+
+
+    public void ShowForm()
+    {
+        showForm = true;
+    }
+
+}
