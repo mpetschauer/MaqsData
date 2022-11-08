@@ -23,7 +23,7 @@
 <div class="container">
 
     <div class="row">
-        <label style="margin-left:20px; margin-top:10px;">Please Choose a form option</label>
+        <label style="margin-left:20px; margin-top:10px;">Please Choose a table option</label>
         <select class="form-select" @bind="@document.TableSelection">
             @foreach (string item in _tableSelection)
             {
@@ -51,7 +51,12 @@
              break;
 
         case "Inventory Table":
+            <LatestInventory/>
             <InventoryTable/>
+            break;
+
+        case "Totals By Year Table":
+            <TotalsByYearTable/>
             break;
 
         default:

@@ -1,0 +1,90 @@
+﻿@using MaqsData.DataTransferObjects
+@using MaqsData.Modules
+@using MaqsData.Contexts;
+@using MaqsData.Data;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.EntityFrameworkCore.Metadata;
+
+@inject ISnackbar Snackbar
+@inject IDbContextFactory<DocumentContext> contextFactory;
+
+
+<h3 style="text-align:center">Latest Inventory</h3>
+
+<div style="border: 2px solid black">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Entry Date</th>
+                <th>Necklace Total</th>
+                <th>Bracelet Total</th>
+                <th>Ring Total</th>
+                <th>Earrings Total</th>
+                <th>Key Chains Total</th>
+                <th>Hair Clips Total</th>
+                <th>Necklace Total Value</th>
+                <th>Bracelet Total Value</th>
+                <th>Ring Total Value</th>
+                <th>Earring Total Value</th>
+                <th>KeyChain Total Value</th>
+                <th>Hair Clip Total Value</th>
+                <th>Total Inventory Value</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+                <tr>
+                    <td>@inv.EntryDate</td>
+                    <td>@inv.NecklaceTotal</td>
+                    <td>@inv.BraceletTotal</td>
+                    <td>@inv.RingTotal</td>
+                    <td>@inv.EarringTotal</td>
+                    <td>@inv.KeyChainTotal</td>
+                    <td>@inv.HairClipTotal</td>
+                    <td>@inv.NeckalaceTotalValue</td>
+                    <td>@inv.BraceletTotalValue</td>
+                    <td>@inv.RingTotalValue</td>
+                    <td>@inv.EarringTotalValue</td>
+                    <td>@inv.KeyChainTotalValue</td>
+                    <td>@inv.HairClipTotalValue</td>
+                    <td>@inv.TotalInventoryValue</td>
+
+                </tr>
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+
+    public Inventory inv = new();
+
+
+    public void FunctionsHandler()
+    {
+
+    }
+
+    public void HandleChange(ChangeEventArgs e)
+    {
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            Functions fn = new Functions(contextFactory);
+            inv = await fn.GetLatestInventory();
+        }
+        catch(Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+}

@@ -7,6 +7,7 @@
 @using Microsoft.EntityFrameworkCore;
 @using Microsoft.EntityFrameworkCore.Metadata;
 
+@inject NavigationManager nav
 @inject ISnackbar Snackbar
 @inject IDbContextFactory<DocumentContext> contextFactory;
 
@@ -129,7 +130,10 @@
             Submitted = true;
             Functions fn = new(contextFactory);
             fn.SaveShowForm(Dataset);
+            nav.NavigateTo("/");
         }
+
+
 
     }
 

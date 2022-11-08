@@ -21,8 +21,8 @@ namespace MaqsData.Models
             NeckalaceTotalValue = doc.NeckalaceTotalValue;
             BraceletTotalValue = doc.BraceletTotalValue;
             RingTotalValue = doc.RingTotalValue;
-            EarringTotalvalue = doc.EarringTotalValue;
-            KeyChainTotalvalue = doc.KeyChainTotalValue;
+            EarringTotalValue = doc.EarringTotalValue;
+            KeyChainTotalValue = doc.KeyChainTotalValue;
             HairClipTotalValue = doc.HairClipTotalValue;
             TotalInventoryValue = doc.TotalInventoryValue;
 

@@ -13,6 +13,7 @@ namespace MaqsData.Models
         public int Id { get; set; }
         public Guid Gkey { get; set; }
         public DateTime? EntryDate { get; set; }
+        public DateTime? ShowDate { get; set; }
         public int NecklacesSold{ get; set; }
         public int BraceletsSold { get; set; }
         public int EarringsSold { get; set; }

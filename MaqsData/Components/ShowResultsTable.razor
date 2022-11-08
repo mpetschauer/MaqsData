@@ -5,52 +5,56 @@
 @using Microsoft.EntityFrameworkCore;
 @using Microsoft.EntityFrameworkCore.Metadata;
 
+@inject NavigationManager nav
 @inject ISnackbar Snackbar
 @inject IDbContextFactory<DocumentContext> contextFactory;
 
-<h3>ShowResultsTable</h3>
+<h3 style="text-align: center">Show Results Table</h3>
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Show Details</th>
-            <th>Necklace Sold</th>
-            <th>Bracelet Sold</th>
-            <th>Ring Sold</th>
-            <th>Earrings Sold</th>
-            <th>Key Chains Sold</th>
-            <th>Hair Clips Sold</th>
-            <th>Gross Profit</th>
-            <th>Expenses</th>
-            <th>Net Profit</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var doc in FormList)
-        {
+<div style="border: 2px solid black">
+    <table class="table">
+        <thead>
             <tr>
-                <td>@doc.Id.ToString()</td>
-                <td>@doc.ShowDetails</td>
-                <td>@doc.NecklacesSold</td>
-                <td>@doc.BraceletsSold</td>
-                <td>@doc.RingsSold</td>
-                <td>@doc.EarringsSold</td>
-                <td>@doc.KeyChainsSold</td>
-                <td>@doc.HairClipsSold</td>
-                <td>@doc.ShowGrossProfit</td>
-                <td>@doc.ExpensesForShow</td>
-                <td>@doc.ShowNetProfit</td>
+                <th>Show Date</th>
+                <th>Show Details</th>
+                <th>Necklace Sold</th>
+                <th>Bracelet Sold</th>
+                <th>Ring Sold</th>
+                <th>Earrings Sold</th>
+                <th>Key Chains Sold</th>
+                <th>Hair Clips Sold</th>
+                <th>Gross Profit</th>
+                <th>Expenses</th>
+                <th>Net Profit</th>
+
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var doc in FormList)
+            {
+                <tr>
+                    <td @onclick="Navigate" type="datetime-local" style="font-weight:bold; ">@GetDateInStringForm((DateTime)doc.ShowDate, Date)</td>
+                    <td>@doc.ShowDetails</td>
+                    <td>@doc.NecklacesSold</td>
+                    <td>@doc.BraceletsSold</td>
+                    <td>@doc.RingsSold</td>
+                    <td>@doc.EarringsSold</td>
+                    <td>@doc.KeyChainsSold</td>
+                    <td>@doc.HairClipsSold</td>
+                    <td>@doc.ShowGrossProfit</td>
+                    <td>@doc.ExpensesForShow</td>
+                    <td>@doc.ShowNetProfit</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 
 @code {
     public List<Document> FormList = new();
+
+    public string Date;
 
 
     public void FunctionsHandler()
@@ -68,14 +72,32 @@
 
         using (var context = contextFactory.CreateDbContext())
         {
-            var RequestItems = context.Documents.ToList();
-            FormList = RequestItems;
-            FormList.Reverse();
+            if (context.Documents.Any())
+            {
+                var RequestItems = context.Documents.ToList();
+                FormList = RequestItems;
+                FormList.Reverse();
+            }
         }
+
+
 
     }
     protected override async Task OnInitializedAsync()
     {
 
+    }
+
+
+    public string GetDateInStringForm(DateTime date, string _date)
+    {
+        var dateAndTime = date;
+        _date = dateAndTime.Date.ToShortDateString();
+        return _date;
+    }
+
+    public void Navigate()
+    {
+        nav.NavigateTo("/form/");  
     }
 }

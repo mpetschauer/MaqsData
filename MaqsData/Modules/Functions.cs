@@ -1,6 +1,8 @@
-﻿using MaqsData.ConstantClasses;
+﻿using MaqsData.Components;
+using MaqsData.ConstantClasses;
 using MaqsData.Contexts;
 using MaqsData.Data;
+using MaqsData.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using MudBlazor;
@@ -13,6 +15,7 @@ namespace MaqsData.Modules
 
         private ISnackbar snackbar;
         private IDbContextFactory<DocumentContext> _contextFactory;
+
         private INavigation navigation;
         public Functions(IDbContextFactory<DocumentContext> contextFactory)
         {
@@ -31,17 +34,27 @@ namespace MaqsData.Modules
                 Inventory Inventory = new(doc);
                 using (var context = _contextFactory.CreateDbContext())
                 {
+                    if (document.Gkey == Guid.Empty || document.Gkey == null)
+                    { 
+                        document.Gkey = Guid.NewGuid();
+
+                        AddToTotal(total, document);
+                        await AdjustInventoryBasedOnFormSubmission(Inventory, document);
 
 
-                    AddToTotal(total, document);
-           
-                    await context.Documents.AddAsync(document);
+                        await context.Documents.AddAsync(document);
+                        await context.Totals.AddAsync(total);
 
-                    await context.Totals.AddAsync(total);
+                        context.SaveChanges();
+                    }
 
-                   
-                    context.SaveChanges();
-                  
+
+                    else
+                    {
+                        context.Attach(document);
+                        context.Entry(document).State = EntityState.Modified;
+                        context.SaveChanges();
+                    }
                 }
             }
             catch(Exception ex)
@@ -59,7 +72,7 @@ namespace MaqsData.Modules
                     CalculateInventoryValue(doc);
 
                     Inventory Inventory = new(doc);
-                    Inventory.entryDate = DateTime.Now;
+                    Inventory.EntryDate = DateTime.Now;
 
                     using (var context = _contextFactory.CreateDbContext())
                     {
@@ -75,47 +88,129 @@ namespace MaqsData.Modules
             
         }
 
+        public async Task<Inventory> GetLatestInventory()
+        {
+            Inventory latestInv = new();
+            using (var context = _contextFactory.CreateDbContext())
+            {
+                if (context.Inventorys.Any())
+                {
+                    latestInv = context.Inventorys.OrderByDescending(x => x.Id).First();
+                }
+
+            }
+            return latestInv;
+        }
+
 
         public void AddToTotal(Total total, Document document)
         {
             using (var context = _contextFactory.CreateDbContext())
             {
 
-                if (context.Totals.Select(x => x.YearToDateNetProfit).Any())
+                if (context.Totals.Any())
                 {
-                    var YTDNetData = context.Totals.Select(x => x.YearToDateNetProfit);
-                    decimal maxNet = (decimal)YTDNetData.Max();
-                    total.YearToDateNetProfit = Decimal.Add(maxNet, document.ShowNetProfit);
-                }
-                else
-                {
-                    total.YearToDateNetProfit = 0;
-                }
 
-                if (context.Totals.Select(x => x.YearToDateGrossProfit).Any())
-                {
-                    var YTDGrossData = context.Totals.Select(x => x.YearToDateGrossProfit);
-                    decimal maxGross = (decimal)YTDGrossData.Max();
-                    total.YearToDateGrossProfit = Decimal.Add(maxGross, document.ShowGrossProfit);
-                }
-                else
-                {
-                    total.YearToDateGrossProfit = 0;
-                }
+                    if (context.Totals.Select(x => x.YearToDateNetProfit).Any())
+                    {
+                        var YTDNetData = context.Totals.Select(x => x.YearToDateNetProfit);
+                        decimal maxNet = (decimal)YTDNetData.Max();
+                        total.YearToDateNetProfit = Decimal.Add(maxNet, document.ShowNetProfit);
+                    }
+                    else
+                    {
+                        total.YearToDateNetProfit = 0;
+                    }
 
-                if (context.Totals.Select(x => x.YearToDateExpenses).Any())
-                {
-                    var YTDExpenseData = context.Totals.Select(x => x.YearToDateExpenses);
-                    decimal maxExpense = (decimal)YTDExpenseData.Max();
-                    total.YearToDateExpenses = Decimal.Add(maxExpense, document.ExpensesForShow);
+                    if (context.Totals.Select(x => x.YearToDateGrossProfit).Any())
+                    {
+                        var YTDGrossData = context.Totals.Select(x => x.YearToDateGrossProfit);
+                        decimal maxGross = (decimal)YTDGrossData.Max();
+                        total.YearToDateGrossProfit = Decimal.Add(maxGross, document.ShowGrossProfit);
+                    }
+                    else
+                    {
+                        total.YearToDateGrossProfit = 0;
+                    }
+
+                    if (context.Totals.Select(x => x.YearToDateExpenses).Any())
+                    {
+                        var YTDExpenseData = context.Totals.Select(x => x.YearToDateExpenses);
+                        decimal maxExpense = (decimal)YTDExpenseData.Max();
+                        total.YearToDateExpenses = Decimal.Add(maxExpense, document.ExpensesForShow);
+                    }
+                    else
+                    {
+                        total.YearToDateExpenses = 0;
+                    }
+
                 }
                 else
                 {
-                    total.YearToDateExpenses = 0;
+                    DateTime CurrentYear = DateTime.UtcNow;
+                    string year = CurrentYear.Year.ToString();
+                    total.YearOfTotals = year;
+                    total.YearToDateExpenses = document.ExpensesForShow;
+                    total.YearToDateGrossProfit = document.ShowGrossProfit;
+                    total.YearToDateNetProfit = document.ShowNetProfit;
                 }
             }
         }
 
+        public async Task AdjustInventoryBasedOnFormSubmission(Inventory inv, Document doc)
+        {
+
+            Inventory LatestInventory = new();
+            LatestInventory = await GetLatestInventory();
+            LatestInventory.BraceletTotal -= doc.BraceletsSold;
+            LatestInventory.RingTotal -= doc.RingsSold;
+            LatestInventory.NecklaceTotal -= doc.NecklacesSold;
+            LatestInventory.EarringTotal -= doc.EarringsSold;
+            LatestInventory.HairClipTotal -= doc.HairClipsSold;
+            LatestInventory.KeyChainTotal -= doc.KeyChainsSold;
+
+            LatestInventory.NeckalaceTotalValue = LatestInventory.NecklaceTotal * JewelryValue.NecklaceValue;
+            LatestInventory.RingTotalValue = LatestInventory.RingTotal * JewelryValue.RingValue;
+            LatestInventory.BraceletTotalValue = LatestInventory.BraceletTotal * JewelryValue.BraceletValue;
+            LatestInventory.EarringTotalValue = LatestInventory.EarringTotal * JewelryValue.EarringValue;
+            LatestInventory.KeyChainTotalValue = LatestInventory.KeyChainTotal * JewelryValue.KeyChainValue;
+            LatestInventory.HairClipTotalValue = LatestInventory.HairClipTotal * JewelryValue.HairClipValue;
+
+
+            List<decimal?> TotalVal = new();
+            TotalVal.Add(LatestInventory.NeckalaceTotalValue);
+            TotalVal.Add(LatestInventory.RingTotalValue);
+            TotalVal.Add(LatestInventory.BraceletTotalValue);
+            TotalVal.Add(LatestInventory.EarringTotalValue);
+            TotalVal.Add(LatestInventory.KeyChainTotalValue);
+            TotalVal.Add(LatestInventory.HairClipTotalValue);
+
+
+            var TotalValSum = TotalVal.Sum();
+
+
+            LatestInventory.TotalInventoryValue = (decimal?)TotalValSum;
+
+            try
+            {
+
+                using (var context = _contextFactory.CreateDbContext())
+                {
+                    if (context.Totals.Any())
+                    {
+                        context.Attach(LatestInventory);
+                        context.Entry(LatestInventory).State = EntityState.Modified;
+                        context.SaveChanges();
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+        }
         public void CalculateInventoryValue(DocumentModel doc)
         {
             JewelryValue jv = new();

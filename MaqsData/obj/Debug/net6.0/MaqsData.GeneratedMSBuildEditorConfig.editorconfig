@@ -23,8 +23,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJbnZlbnRvcnlUYWJsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/dev/MaqsData/MaqsData/Components/LatestInventory.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xMYXRlc3RJbnZlbnRvcnkucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/dev/MaqsData/MaqsData/Components/ShowResultsTable.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xTaG93UmVzdWx0c1RhYmxlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/dev/MaqsData/MaqsData/Components/TotalsByYearTable.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xUb3RhbHNCeVllYXJUYWJsZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/dev/MaqsData/MaqsData/Pages/Index.razor]

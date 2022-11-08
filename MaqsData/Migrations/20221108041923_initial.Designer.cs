@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaqsData.Migrations
 {
     [DbContext(typeof(DocumentContext))]
-    [Migration("20221101013034_initial")]
+    [Migration("20221108041923_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,9 @@ namespace MaqsData.Migrations
                     b.Property<int>("RingsSold")
                         .HasColumnType("int");
 
+                    b.Property<DateTime?>("ShowDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ShowDetails")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,8 +97,11 @@ namespace MaqsData.Migrations
                     b.Property<int>("EarringTotal")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("EarringTotalvalue")
+                    b.Property<decimal?>("EarringTotalValue")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<DateTime?>("EntryDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("HairClipTotal")
                         .HasColumnType("int");
@@ -106,7 +112,7 @@ namespace MaqsData.Migrations
                     b.Property<int>("KeyChainTotal")
                         .HasColumnType("int");
 
-                    b.Property<decimal?>("KeyChainTotalvalue")
+                    b.Property<decimal?>("KeyChainTotalValue")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<decimal?>("NeckalaceTotalValue")
@@ -124,9 +130,6 @@ namespace MaqsData.Migrations
                     b.Property<decimal?>("TotalInventoryValue")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime?>("entryDate")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
 
                     b.ToTable("Inventorys");
@@ -143,8 +146,8 @@ namespace MaqsData.Migrations
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("YearOfTotals")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("YearOfTotals")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("YearSummary")
                         .HasColumnType("nvarchar(max)");

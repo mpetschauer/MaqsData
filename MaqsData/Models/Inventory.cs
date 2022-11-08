@@ -9,7 +9,7 @@ namespace MaqsData.Models
 
         [Key]
         public int Id { get; set; }
-        public DateTime? entryDate { get; set; }
+        public DateTime? EntryDate { get; set; }
         public int NecklaceTotal { get; set; }
         public int BraceletTotal { get; set; }
         public int RingTotal { get; set; }
@@ -20,8 +20,8 @@ namespace MaqsData.Models
         public decimal? NeckalaceTotalValue { get; set; }
         public decimal? BraceletTotalValue { get; set; }
         public decimal? RingTotalValue { get; set; }
-        public decimal? EarringTotalvalue { get; set;}
-        public decimal? KeyChainTotalvalue { get; set; }
+        public decimal? EarringTotalValue { get; set;}
+        public decimal? KeyChainTotalValue { get; set; }
         public decimal? HairClipTotalValue { get; set; }
         public decimal? TotalInventoryValue { get; set; }
 

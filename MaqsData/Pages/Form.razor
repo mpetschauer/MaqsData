@@ -8,6 +8,7 @@
 @using Microsoft.EntityFrameworkCore.Metadata;
 @using MaqsData.Components;
 
+@inject NavigationManager nav
 @inject ISnackbar Snackbar
 @inject IDbContextFactory<DocumentContext> contextFactory;
 
@@ -16,6 +17,17 @@
 
 
 <div class="container">
+
+    @{
+        if(document.NavFromTableToShowForm == true)
+        {
+            <ShowResultsForm Dataset=@document />
+        }
+        else if (document.NavFromTableToInventoryForm == true)
+        {
+            <InventoryForm Dataset="@document" />
+        }
+    }
 
     <div class="row">
         <label style="margin-left:20px; margin-top:10px;">Please Choose a form option</label>

@@ -1,0 +1,80 @@
+﻿@using MaqsData.DataTransferObjects
+@using MaqsData.Modules
+@using MaqsData.Contexts;
+@using MaqsData.Data;
+@using Microsoft.EntityFrameworkCore;
+@using Microsoft.EntityFrameworkCore.Metadata;
+
+@inject ISnackbar Snackbar
+@inject IDbContextFactory<DocumentContext> contextFactory;
+
+<br />
+<br />
+
+<h3 style="text-align:center">Yearly Totals</h3>
+
+<div style="border: 2px solid black">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Year to Date Gross Profit</th>
+                <th>Year to Date Expenses</th>
+                <th>Year to Date Net Profit</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>2022</td>
+                    <td>@TotalsByYear.YearToDateGrossProfit</td>
+                    <td>@TotalsByYear.YearToDateExpenses</td>
+                    <td>@TotalsByYear.YearToDateNetProfit</td>
+                </tr>
+        </tbody>
+    </table>
+
+
+
+</div>
+
+
+
+@code {
+    public Total TotalsByYear = new();
+
+
+    public void FunctionsHandler()
+    {
+
+    }
+
+    public void HandleChange(ChangeEventArgs e)
+    {
+
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+
+        using (var context = contextFactory.CreateDbContext())
+        {
+            try
+            {
+                if (context.Totals.Any())
+                {
+                    var Totals = context.Totals.OrderByDescending(x => x.Id).First();
+                    TotalsByYear = Totals;
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+    }
+
+    }
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+}

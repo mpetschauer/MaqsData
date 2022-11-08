@@ -20,6 +20,7 @@ namespace MaqsData.Data
         {
             DocumentId = doc.Id;
             Gkey = doc.Gkey;
+            ShowDate = doc.ShowDate;
             EntryDate = doc.EntryDate;
             NecklacesSold = doc.NecklacesSold;
             BraceletsSold = doc.BraceletsSold;
@@ -58,8 +59,8 @@ namespace MaqsData.Data
             NeckalaceTotalValue = doc.NeckalaceTotalValue;
             BraceletTotalValue = doc.BraceletTotalValue;
             RingTotalValue = doc.RingTotalValue;
-            EarringTotalValue = doc.EarringTotalvalue;
-            KeyChainTotalValue = doc.KeyChainTotalvalue;
+            EarringTotalValue = doc.EarringTotalValue;
+            KeyChainTotalValue = doc.KeyChainTotalValue;
             HairClipTotalValue = doc.HairClipTotalValue;
             TotalInventoryValue = doc.TotalInventoryValue;
 
@@ -71,7 +72,7 @@ namespace MaqsData.Data
         public Guid Gkey { get; set; }
         public DateTime? EntryDate { get; set; }
         public DateTime? ShowDate { get; set; }
-        public DateTime? YearOfTotals { get; set; }
+        public string? YearOfTotals { get; set; }
         public string? FormSelection { get; set; }
 
         public string? TableSelection { get; set; }
@@ -104,5 +105,8 @@ namespace MaqsData.Data
         public decimal? KeyChainTotalValue { get; set; }
         public decimal? HairClipTotalValue { get; set; }
         public decimal? TotalInventoryValue { get; set; }
+
+        public bool? NavFromTableToShowForm { get; set; }
+        public bool? NavFromTableToInventoryForm { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace MaqsData.Models
 
         [Key]
         public int Id { get; set; }
-        public DateTime? YearOfTotals { get; set; }
+        public string? YearOfTotals { get; set; }
         public decimal? YearToDateExpenses { get; set; }
         public decimal? YearToDateNetProfit { get; set; }
         public decimal? YearToDateGrossProfit { get; set; }

@@ -5,6 +5,7 @@
 @using Microsoft.EntityFrameworkCore;
 @using Microsoft.EntityFrameworkCore.Metadata;
 
+@inject NavigationManager nav
 @inject ISnackbar Snackbar
 @inject IDbContextFactory<DocumentContext> contextFactory;
 
@@ -63,11 +64,44 @@
 </div>
 
 
+<h3 style="text-align:center">Latest Inventory</h3>
+
+<div style="border: 2px solid black">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Necklace Total</th>
+                <th>Bracelet Total</th>
+                <th>Ring Total</th>
+                <th>Earrings Total</th>
+                <th>Key Chains Total</th>
+                <th>Hair Clips Total</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>@inv.NecklaceTotal</td>
+                <td>@inv.BraceletTotal</td>
+                <td>@inv.RingTotal</td>
+                <td>@inv.EarringTotal</td>
+                <td>@inv.KeyChainTotal</td>
+                <td>@inv.HairClipTotal</td>
+
+
+            </tr>
+        </tbody>
+    </table>
+</div>
+
 
 @code {
 
     [Parameter]
     public DocumentModel Dataset { get; set; }
+
+    public Inventory inv = new();
 
 
     bool isValid = true;
@@ -96,13 +130,16 @@
             Submitted = true;
             Functions fn = new(contextFactory);
             fn.SaveInventoryForm(Dataset);
+            nav.NavigateTo("/");
+
         }
 
     }
 
     protected override async Task OnParametersSetAsync()
     {
-        return;
+        Functions fn = new Functions(contextFactory);
+        inv = await fn.GetLatestInventory();
     }
 
 
