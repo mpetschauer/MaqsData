@@ -47,6 +47,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/dev/MaqsData/MaqsData/Components/InventoryAdditionForm.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJbnZlbnRvcnlBZGRpdGlvbkZvcm0ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-rtcnr852yd
+
 [C:/dev/MaqsData/MaqsData/Components/InventoryForm.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xJbnZlbnRvcnlGb3JtLnJhem9y
 build_metadata.AdditionalFiles.CssScope = b-xy981avtkw

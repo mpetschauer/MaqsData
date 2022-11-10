@@ -20,6 +20,7 @@ namespace MaqsData.Data
         {
             DocumentId = doc.Id;
             Gkey = doc.Gkey;
+            ShowName = doc.ShowName;
             ShowDate = doc.ShowDate;
             EntryDate = doc.EntryDate;
             NecklacesSold = doc.NecklacesSold;
@@ -72,6 +73,7 @@ namespace MaqsData.Data
         public Guid Gkey { get; set; }
         public DateTime? EntryDate { get; set; }
         public DateTime? ShowDate { get; set; }
+        public string? ShowName { get; set; }
         public string? YearOfTotals { get; set; }
         public string? FormSelection { get; set; }
 

@@ -67,6 +67,9 @@ namespace MaqsData.Migrations
                     b.Property<decimal>("ShowGrossProfit")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("ShowName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("ShowNetProfit")
                         .HasColumnType("decimal(18,2)");
 

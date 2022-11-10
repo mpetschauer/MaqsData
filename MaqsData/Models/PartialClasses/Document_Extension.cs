@@ -15,6 +15,7 @@ namespace MaqsData.Models
         {
             Id = doc.DocumentId;
             Gkey = doc.Gkey;
+            ShowName = doc.ShowName;
             ShowDate = doc.ShowDate;
             EntryDate = doc.EntryDate;
             NecklacesSold = doc.NecklacesSold;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MaqsData.Migrations
 {
     [DbContext(typeof(DocumentContext))]
-    [Migration("20221108041923_initial")]
-    partial class initial
+    [Migration("20221109233310_inital")]
+    partial class inital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -68,6 +68,9 @@ namespace MaqsData.Migrations
 
                     b.Property<decimal>("ShowGrossProfit")
                         .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ShowName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ShowNetProfit")
                         .HasColumnType("decimal(18,2)");

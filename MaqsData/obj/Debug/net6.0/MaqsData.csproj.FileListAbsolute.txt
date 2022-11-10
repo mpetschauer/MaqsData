@@ -81,3 +81,4 @@ C:\dev\MaqsData\MaqsData\obj\Debug\net6.0\scopedcss\Components\ShowResultsForm.r
 C:\dev\MaqsData\MaqsData\obj\Debug\net6.0\scopedcss\Pages\Form.razor.rz.scp.css
 C:\dev\MaqsData\MaqsData\obj\Debug\net6.0\scopedcss\Pages\FetchData.razor.rz.scp.css
 C:\dev\MaqsData\MaqsData\obj\Debug\net6.0\scopedcss\Components\InventoryForm.razor.rz.scp.css
+C:\dev\MaqsData\MaqsData\obj\Debug\net6.0\scopedcss\Components\InventoryAdditionForm.razor.rz.scp.css

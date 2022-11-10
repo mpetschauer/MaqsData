@@ -15,7 +15,9 @@
     <table class="table">
         <thead>
             <tr>
+               
                 <th>Show Date</th>
+                <th>Show Name</th>
                 <th>Show Details</th>
                 <th>Necklace Sold</th>
                 <th>Bracelet Sold</th>
@@ -34,6 +36,7 @@
             {
                 <tr>
                     <td @onclick="Navigate" type="datetime-local" style="font-weight:bold; ">@GetDateInStringForm((DateTime)doc.ShowDate, Date)</td>
+                    <td>@doc.ShowName</td>
                     <td>@doc.ShowDetails</td>
                     <td>@doc.NecklacesSold</td>
                     <td>@doc.BraceletsSold</td>

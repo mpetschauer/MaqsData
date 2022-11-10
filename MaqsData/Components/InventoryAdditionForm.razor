@@ -17,55 +17,25 @@
 <div class="container">
 
 
-    <label class="header">Show Result Form</label>
     <div class="row">
-        <label>Show Name</label>
-        <input class="fieldz" type="text" @bind="Dataset.ShowName" @oninput="ChangeHandler" />
-        <label></label>
-        <input class="fieldz" type="hidden"@oninput="ChangeHandler" />
-    </div>
-
-    <div class="row">
-        <label>Show Date</label>
-        <input class="fieldz" type="datetime-local" @bind="Dataset.ShowDate" @oninput="ChangeHandler" />
-        <label>Entry Date</label>
-        <input class="fieldz" type="datetime-local" @bind="Dataset.EntryDate" @oninput="ChangeHandler" />
-    </div>
-    <div class="row">
-        <label>Necklaces Sold</label>
+        <label>Necklaces Added</label>
         <input class="fieldz" @bind="Dataset.NecklacesSold" @oninput="ChangeHandler" />
-        <label>Bracelets Sold</label>
+        <label>Bracelets Added</label>
         <input class="fieldz" @bind="Dataset.BraceletsSold" @oninput="ChangeHandler" />
     </div>
     <div class="row">
-        <label>Rings Sold</label>
+        <label>Rings Added</label>
         <input class="fieldz" @bind="Dataset.RingsSold" @oninput="ChangeHandler" />
-        <label>Earrings Sold</label>
+        <label>Earrings Added</label>
         <input class="fieldz" @bind="Dataset.EarringsSold" @oninput="ChangeHandler" />
     </div>
     <div class="row">
-        <label>Key Chains Sold</label>
+        <label>Key Chains Added</label>
         <input class="fieldz" @bind="Dataset.KeyChainsSold" @oninput="ChangeHandler" />
-        <label>Hair Clips Sold</label>
+        <label>Hair Clips Added</label>
         <input class="fieldz" @bind="Dataset.HairClipsSold" @oninput="ChangeHandler" />
     </div>
-    <div class="row">
-        <label>ExpensesForShow</label>
-        <input class="fieldz" @bind="Dataset.ExpensesForShow" @oninput="ChangeHandler" />
-        <label>Show Gross Profit</label>
-        <input class="fieldz" @bind="Dataset.ShowGrossProfit"  />
 
-    </div>
-    <div class="row">
-        <label>Show Net Profit</label>
-        <input class="fieldz" value="@Dataset.ShowNetProfit" readonly=true @onchange="ChangeHandler" />
-        <label>Show Details</label>
-        <input class="fieldz" @bind="Dataset.ShowDetails" @oninput="ChangeHandler" />
-    </div>
-        <div class="row">
-        <label>Summary</label>
-        <textarea class="text-area"  @bind="Dataset.Summary" @oninput="ChangeHandler" />
-    </div>
 
     <div class="buttons">
 
@@ -100,11 +70,12 @@
     [Parameter]
     public DocumentModel Dataset
     {
-        get {
-            _dataset.ShowNetProfit = _dataset.ShowGrossProfit - _dataset.ExpensesForShow;
+        get
+        {
             return _dataset;
         }
-        set{
+        set
+        {
 
         }
     }
@@ -135,7 +106,7 @@
         {
             Submitted = true;
             Functions fn = new(contextFactory);
-            fn.SaveShowForm(Dataset);
+            fn.AdjustInventory(Dataset);
             nav.NavigateTo("/");
         }
 
@@ -161,11 +132,8 @@
 
     public List<string> Validate(DocumentModel doc, List<string> errors)
     {
-        if (doc.ShowDate == null)
-            errors.Add("Show Date");
-        if (doc.EntryDate == null)
-            errors.Add("Entry Date");
-        if (doc.NecklaceTotal == null)
+
+        if (doc.NecklacesSold== null)
             errors.Add("Necklace Count");
         if (doc.RingsSold == null)
             errors.Add("Rings Sold");

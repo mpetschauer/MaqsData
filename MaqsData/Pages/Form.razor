@@ -59,10 +59,14 @@
              Dataset=@document/>
              break;
 
-        case "Inventory Form":
+        case "Inventory Changes Form":
             <InventoryForm
              Dataset="@document" />
              break;
+        case "Add to Inventory Form":
+            <InventoryAdditionForm
+             Dataset="@document"/>
+            break;
 
         default:
             <ShowResultsForm

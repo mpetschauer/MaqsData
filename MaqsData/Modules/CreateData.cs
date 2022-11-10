@@ -33,8 +33,11 @@ namespace MaqsData.Modules
             
             {
                 "Show Results Form",
-                "Inventory Form",
-                "Totals By Year Form"
+
+                "Inventory Changes Form",
+
+                "Add to Inventory Form",
+                
             };
 
             return formDropdown;
@@ -45,9 +48,10 @@ namespace MaqsData.Modules
             List<string> formDropdown = new()
 
             {
-                "Show Results Table",
-                "Inventory Table",
-                "Totals By Year Table"
+                "Show Results",
+                "Inventory Entries",
+                "Latest Inventory",
+                "Totals By Year"
             };
 
             return formDropdown;

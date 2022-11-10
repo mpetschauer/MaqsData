@@ -1,3 +1,73 @@
+/* _content/MaqsData/Components/InventoryAdditionForm.razor.rz.scp.css */
+body[b-rtcnr852yd] {
+}
+
+
+
+
+.container[b-rtcnr852yd] {
+    width: 80%;
+    height: 80%;
+    border: 2px solid black;
+    margin-top: 20px;
+}
+
+
+.row[b-rtcnr852yd] {
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.buttons[b-rtcnr852yd] {
+    justify-content: center;
+    display: flex;
+    margin-top: 10px;
+}
+
+
+label[b-rtcnr852yd] {
+    width: 18%;
+}
+
+.fieldz[b-rtcnr852yd] {
+    width: 20%;
+    float: left;
+    border: 2px solid black;
+}
+
+.text-area[b-rtcnr852yd] {
+    width: 60%;
+    float: left;
+    border: 2px solid black;
+}
+
+.buttonz[b-rtcnr852yd] {
+    width: 10%;
+    height: 40px;
+    box-shadow: 10px lightgray;
+    text-align: center;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 2px solid black;
+    background-color: light gray;
+}
+
+.divider[b-rtcnr852yd] {
+    width: 10px;
+    height: auto;
+    display: inline-block;
+}
+
+.header[b-rtcnr852yd] {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+}
 /* _content/MaqsData/Components/InventoryForm.razor.rz.scp.css */
 body[b-xy981avtkw] {
 }
