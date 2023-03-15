@@ -6,9 +6,6 @@ namespace MaqsData.Models
 {
     public partial class Document
     {
-
-
-
         [Key]
         public int Id { get; set; }
         public Guid Gkey { get; set; }

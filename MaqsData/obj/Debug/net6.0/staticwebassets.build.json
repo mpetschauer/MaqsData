@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "x3kMaxsDm/qYbU/j7HSzCZmPwV1eSyt/OCYaH9xAc7Y=",
+  "Hash": "W50Z0XSAyLA6tiZAnVacSoM60mgZJ4sIeiT7Z6Ln6X0=",
   "Source": "MaqsData",
   "BasePath": "_content/MaqsData",
   "Mode": "Default",
@@ -287,6 +287,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\dev\\MaqsData\\MaqsData\\wwwroot\\images\\MADLogoOpaque.png",
+      "SourceId": "MaqsData",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\dev\\MaqsData\\MaqsData\\wwwroot\\",
+      "BasePath": "_content/MaqsData",
+      "RelativePath": "images/MADLogoOpaque.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\MADLogoOpaque.png"
     },
     {
       "Identity": "C:\\Users\\smpet\\.nuget\\packages\\mudblazor\\6.0.17\\staticwebassets\\MudBlazor.min.css",

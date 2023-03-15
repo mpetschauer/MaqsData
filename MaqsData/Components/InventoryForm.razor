@@ -13,10 +13,7 @@
 <PageTitle>Form</PageTitle>
 
 <div class="container">
-
-
     <label class="header">Inventory Form</label>
-
 
     <div class="row">
         <label>Necklaces Total</label>
@@ -45,7 +42,7 @@
         @{
             if (!isValid)
             {
-                Snackbar.Configuration.PositionClass = Defaults.Classes.Position.TopRight;
+                
                 Snackbar.Add($"You have {errors.Count} errors on the form: {ErrorString} fields must be filled in", Severity.Error);
                 isValid = true;
                 ErrorString = "";

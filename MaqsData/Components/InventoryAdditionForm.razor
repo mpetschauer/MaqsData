@@ -15,7 +15,7 @@
 <PageTitle>Form</PageTitle>
 
 <div class="container">
-
+    <h3 class="header">Add to Inventory Form</h3>
 
     <div class="row">
         <label>Necklaces Added</label>
@@ -35,7 +35,6 @@
         <label>Hair Clips Added</label>
         <input class="fieldz" @bind="Dataset.HairClipsSold" @oninput="ChangeHandler" />
     </div>
-
 
     <div class="buttons">
 
@@ -57,10 +56,7 @@
                 Submitted = false;
             }
         }
-
     </div>
-
-
 </div>
 
 
@@ -68,33 +64,21 @@
 @code {
 
     [Parameter]
-    public DocumentModel Dataset
-    {
-        get
-        {
-            return _dataset;
-        }
-        set
-        {
-
-        }
-    }
+    public DocumentModel Dataset { get => _dataset; set{} }
 
 
     bool isValid = true;
     List<string> errors = new();
-    string ErrorString;
+    string? ErrorString;
     public bool Submitted = false;
     public DocumentModel _dataset = new();
-
-
 
     public void ChangeHandler(ChangeEventArgs e)
     {
 
     }
 
-    public void FunctionsHandler()
+    public async Task FunctionsHandler()
     {
         errors = Validate(Dataset, errors);
 
@@ -106,46 +90,26 @@
         {
             Submitted = true;
             Functions fn = new(contextFactory);
-            fn.AdjustInventory(Dataset);
+            await fn.AdjustInventory(Dataset);
             nav.NavigateTo("/");
         }
-
-
-
     }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        return;
-    }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        CreateData cd = new();
-
-
-
-        return;
-    }
-
 
     public List<string> Validate(DocumentModel doc, List<string> errors)
     {
 
-        if (doc.NecklacesSold== null)
+        if (doc.NecklacesSold == 0)
             errors.Add("Necklace Count");
-        if (doc.RingsSold == null)
+        if (doc.RingsSold == 0)
             errors.Add("Rings Sold");
-        if (doc.EarringsSold == null)
+        if (doc.EarringsSold == 0)
             errors.Add("Earrings Sold");
-        if (doc.BraceletsSold == null)
+        if (doc.BraceletsSold == 0)
             errors.Add("Bracelet Count");
-        if (doc.HairClipsSold == null)
+        if (doc.HairClipsSold == 0)
             errors.Add("Hair Clip Count");
-        if (doc.KeyChainsSold == null)
+        if (doc.KeyChainsSold == 0)
             errors.Add("Key Chain Count");
-
 
         ErrorString = GetAlertString(errors);
         return errors;
@@ -162,9 +126,7 @@
                 errorString += error + " ";
             else
                 errorString += error + ", ";
-
         }
-
         return errorString;
     }
 }

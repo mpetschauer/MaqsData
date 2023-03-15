@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Identity.Client;
 using MudBlazor;
+using System.Data;
 
 
 namespace MaqsData.Modules
@@ -66,19 +67,27 @@ namespace MaqsData.Modules
         }
 
 
-        public async Task<bool>SaveInventoryForm(DocumentModel doc)
+        public async Task<bool>SaveInventoryForm(DocumentModel dataset)
         {
                 try
                 {
-                    CalculateInventoryValue(doc);
+                    CalculateInventoryValue(dataset);
 
-                    Inventory Inventory = new(doc);
+                    Inventory Inventory = new(dataset);
                     Inventory.EntryDate = DateTime.Now;
 
-                    using (var context = _contextFactory.CreateDbContext())
+                    InventoryEntry inv = new InventoryEntry(dataset);
+                    inv.EntryDate = DateTime.Now;
+                    inv.EntryType = "Complete Change";
+                   
+
+                using (var context = _contextFactory.CreateDbContext())
                     {
                         await context.Inventorys.AddAsync(Inventory);
                         context.SaveChanges();
+
+                    await context.InventoryEntries.AddAsync(inv);
+                    context.SaveChanges();
                     }
                 }
                 catch (Exception ex)
@@ -283,6 +292,14 @@ namespace MaqsData.Modules
                         context.Entry(LatestInventory).State = EntityState.Modified;
                         context.SaveChanges();
                     }
+
+
+                    InventoryEntry inv = new InventoryEntry(Dataset, "Addition");
+                    inv.EntryDate = DateTime.Now;
+
+
+                    await context.InventoryEntries.AddAsync(inv);
+                    context.SaveChanges();
 
                 }
                 catch (Exception ex)

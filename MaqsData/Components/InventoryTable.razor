@@ -19,19 +19,14 @@
             <tr>
                 <th>Id</th>
                 <th>Entry Date</th>
+                <th>Entry Type</th>
                 <th>Necklace Total</th>
                 <th>Bracelet Total</th>
                 <th>Ring Total</th>
                 <th>Earrings Total</th>
                 <th>Key Chains Total</th>
                 <th>Hair Clips Total</th>
-                <th>Necklace Total Value</th>
-                <th>Bracelet Total Value</th>
-                <th>Ring Total Value</th>
-                <th>Earring Total Value</th>
-                <th>KeyChain Total Value</th>
-                <th>Hair Clip Total Value</th>
-                <th>Total Inventory Value</th>
+
 
             </tr>
         </thead>
@@ -41,19 +36,13 @@
                 <tr>
                     <td>@doc.Id.ToString()</td>
                     <td>@doc.EntryDate</td>
+                    <td>@doc.EntryType</td>
                     <td>@doc.NecklaceTotal</td>
                     <td>@doc.BraceletTotal</td>
                     <td>@doc.RingTotal</td>
                     <td>@doc.EarringTotal</td>
                     <td>@doc.KeyChainTotal</td>
                     <td>@doc.HairClipTotal</td>
-                    <td>@doc.NeckalaceTotalValue</td>
-                    <td>@doc.BraceletTotalValue</td>
-                    <td>@doc.RingTotalValue</td>
-                    <td>@doc.EarringTotalValue</td>
-                    <td>@doc.KeyChainTotalValue</td>
-                    <td>@doc.HairClipTotalValue</td>
-                    <td>@doc.TotalInventoryValue</td>
 
                 </tr>
             }
@@ -67,7 +56,7 @@
 
 
 @code {
-    public List<Inventory> InventoryList = new();
+    public List<InventoryEntry> InventoryList = new();
 
 
     public void FunctionsHandler()
@@ -89,7 +78,7 @@
             {
                 if (context.Inventorys.Any())
                 {
-                    var RequestItems = context.Inventorys.ToList();
+                    var RequestItems = context.InventoryEntries.ToList();
                     InventoryList = RequestItems;
                     InventoryList.Reverse();
                 }

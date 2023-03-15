@@ -14,6 +14,7 @@ namespace MaqsData.Contexts
         public DbSet<Document> Documents { get; set; }
         public DbSet<Total> Totals { get; set; }
         public DbSet<Inventory> Inventorys { get; set;}
+        public DbSet<InventoryEntry> InventoryEntries { get; set; } 
 
 
     }

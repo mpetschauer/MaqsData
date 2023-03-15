@@ -1,9 +1,48 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
 
-<h1>Hello, Peoples!</h1>
+    <h1 class="header">MAD Nature Related Data</h1>
 
-Welcome to your new app.
+    <img class="photo" src="images/MADLogoOpaque.png" />
 
-<SurveyPrompt Title="MAD Nature Related Data App" />
+    <div class="spacer">
+        </div>
+
+    <h2 class="center">FACT OF THE DAY</h2>
+    <h3 class="center">@RandomFact</h3>
+
+
+@code {
+
+    string RandomFact = "TEST";
+}
+
+<style>
+
+.header{
+        text-align: center;
+        font-weight: bold;
+        color: purple;
+        wdith: 70%;
+        border-bottom: 2px solid purple;
+}
+
+.photo{
+    width:50%;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    }
+}
+
+.spacer{
+    padding: 50px 50px 50px 50px;
+}
+
+.center-text{
+        text-align:center;
+}
+
+
+</style>
